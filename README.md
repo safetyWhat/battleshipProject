@@ -29,3 +29,10 @@ Set 2 player(s)
         build row
             construct cells
     place ships
+
+ship placement:
+    create ship. const carrier = new Ship(5);
+    place ship.
+        for (let i = 0; i < carrier.length; i++) {
+
+        }

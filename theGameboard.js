@@ -15,8 +15,8 @@ export class Gameboard {
             this.shot = true;
         }
     
-        placeShip() {
-            this.ship = true;
+        placeShip(name) {
+            this.ship = name;
         }
     }
 
@@ -30,6 +30,4 @@ export class Gameboard {
         }
         return board;
     }
-
-    
 }
