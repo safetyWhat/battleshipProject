@@ -23,18 +23,18 @@ describe('battleship test', () => {
         expect(game.board[1][1]).toEqual({'coord': '1/1', 'shot': false, 'ship': 'patrol'});
     })
     it('ship construction', () => {
-        const carrier = new Ship(5);
-        expect(carrier).toEqual({'length': 5, 'hits': 0, 'sunk': false});
+        const carrier = new Ship('carrier', 5);
+        expect(carrier).toEqual({'name': 'carrier', 'length': 5, 'hits': 0, 'sunk': false});
         expect(carrier.length).toEqual(5);
         carrier.hit();
         expect(carrier.hits).toEqual(1);
     })
     it('set ship random', () => {
         const game = new Gameboard(3);
-        const patrol = new Ship(2);
-        const destroyer = new Ship(3);
-        setShip(3, game.board, 'patrol', patrol.length);
-        setShip(3, game.board, 'destroyer', destroyer.length);
+        const patrol = new Ship('patrol', 2);
+        const destroyer = new Ship('destroyer', 3);
+        patrol.setShip(game.boardSize, game.board);
+        destroyer.setShip(game.boardSize, game.board);
         let count = 0;
         for (let i = 0; i < game.board.length; i++) {
             for (let j = 0; j < game.board[i].length; j++) {

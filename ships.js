@@ -1,9 +1,45 @@
 export class Ship {
-    constructor (length) {
+    constructor (name, length) {
+        this.name = name
         this.length = length;
         this.hits = 0;
         this.sunk = false;
     }
+
+    setShip(boardSize, board) {
+        let row = randomNum(boardSize);
+        let col = randomNum(boardSize);
+        const direction = randomNum(2);
+        //these will hold the coordinates to test on the board
+        const rowNum = [];
+        const colNum = [];
+    
+        if (direction == 0) { //set ship horizontal
+            if (col + (this.length) > boardSize) {
+                col = col - ((col + this.length) - boardSize)
+            }
+            for (let i = 0; i < this.length; i++) {
+                rowNum.push(row);
+                colNum.push(col);
+                col = col + 1;
+            }
+        } else { //set ship vertical
+            if (row + (this.length) > boardSize) {
+                row = row - ((row + this.length) - boardSize)
+            }
+            for (let i = 0; i < this.length; i++) {
+                rowNum.push(row);
+                colNum.push(col);
+                row = row + 1;
+            }
+        }
+        console.log(rowNum, colNum)
+        if (checkCells(rowNum, colNum, board)) {
+            selectCells(rowNum, colNum, board, this.name);
+        } else {
+            this.setShip(boardSize, board);
+        }
+    };
 
     hit() {
         this.hits = this.hits + 1;
@@ -37,6 +73,7 @@ export const selectCells = (rows, cols, board, name) => {
     }
 }
 
+/*
 export const setShip = (boardSize, board, shipName, length) => {
     let row = randomNum(boardSize);
     let col = randomNum(boardSize);
@@ -71,3 +108,4 @@ export const setShip = (boardSize, board, shipName, length) => {
         setShip(boardSize, board, shipName, length);
     }
 };
+*/
