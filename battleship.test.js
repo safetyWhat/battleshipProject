@@ -1,5 +1,6 @@
 import { Gameboard } from "./theGameboard";
 import { Ship, checkCells, selectCells, setShip } from "./ships";
+import exp from "constants";
 
 describe('battleship test', () => {
     it('board construction', () => {
@@ -44,5 +45,27 @@ describe('battleship test', () => {
             }
         }
         expect(count).toEqual(5);
+    })
+    it('try bigger board with more ships', () => {
+        const game = new Gameboard(10);
+        const patrol = new Ship('patrol', 2);
+        const destroyer = new Ship('destroyer', 3);
+        const submarine = new Ship('submarine', 3);
+        const carrier = new Ship('carrier', 5);
+        const battleship = new Ship('battleship', 4);
+        battleship.setShip(game.boardSize, game.board);
+        carrier.setShip(game.boardSize, game.board);
+        submarine.setShip(game.boardSize, game.board);
+        destroyer.setShip(game.boardSize, game.board);
+        patrol.setShip(game.boardSize, game.board);
+        let count = 0;
+        for (let i = 0; i < game.board.length; i++) {
+            for (let j = 0; j < game.board[i].length; j++) {
+                if (game.board[i][j].ship !== false) {
+                    count++
+                }
+            }
+        }
+        expect(count).toEqual(17);
     })
 })
