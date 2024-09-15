@@ -4,20 +4,33 @@
     padding: 0;
 }
 
+#game_container {
+    display: flex;
+}
+
 .player_container {
-    height: 500px;
-    width: 500px;
+    display: flex;
+    min-width: 500px;
+}
+
+.gameboard_grid {
+    display: flex;
+    flex-direction: column;
+    min-width: 450px;
+    gap: 2px;
 }
 
 .gridRow {
-    display: inline-grid;
-    grid-template-columns: (10, 1fr);
+    display: flex;
+    flex-direction: row;
+    flex-grow: 1;
+    gap: 2px;
 }
 
 .gridCell {
-    height: 50px;
-    width: 50px;
+    flex-grow: 1;
     border: 2px solid grey;
+    aspect-ratio: 1/1;
 }
 
 .hit {

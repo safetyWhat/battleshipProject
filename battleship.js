@@ -1,3 +1,13 @@
+const player1grid = document.getElementById('player1_grid');
+const player2grid = document.getElementById('player2_grid');
+const shipList = [
+    {name: 'carrier', length: 5},
+    {name: 'battleship', length: 4},
+    {name: 'destroyer', length: 3},
+    {name: 'submarine', length: 3},
+    {name: 'patrol boat', length: 2}
+]
+
 class Gameboard {
     constructor(size) {
         this.boardSize = size;
@@ -87,6 +97,24 @@ class Ship {
     }
 }
 
+class Player {
+    constructor (type, size) {
+        this.type = type;
+        this.game = new Gameboard(size);
+        this.ships = this.createShips(size)
+    }
+
+    createShips(boardSize) {
+        const ships = [];
+        for (let i = 0; i < shipList.length; i++) {
+            ships[i] = new Ship(shipList[i].name, shipList[i].length);
+            //ships.push(ship);
+            ships[i].setShip(boardSize, this.game.board);
+        }
+        return ships;
+    }
+}
+
 const randomNum = (n) => {
     const num = Math.floor(Math.random() * n)
     return num
@@ -102,12 +130,11 @@ const checkCells = (rows, cols, board) => {
 }
 
 const selectCells = (rows, cols, board, name) => {
+    console.log(rows, cols)
     for (let i = 0; i < rows.length; i++) {
         board[rows[i]][cols[i]].placeShip(name);
     }
 }
-
-const player1grid = document.getElementById('player1_grid');
 
 const shotTest  = (cellValue) => {
     let cellClass = 'none';
@@ -147,11 +174,35 @@ const shotFired = (board, row, col) => {
         shotCell.receiveAttack();
         const ship = shotCell.ship; //should provide ship name
         ship.hit();
-        console.log('hit');
+        console.log('hit', ship);
     }
 }
 
-const game = new Gameboard(5);
+player1grid.addEventListener('click', function(e) {
+    if (e.target.classList.contains('gridCell')) {
+        console.log('click')
+        const coord = e.target.id;
+        row = coord.charAt(0);
+        col = coord.charAt(coord.length-1);
+        shotFired(playerOne.game.board, row, col);
+        player1grid.innerHTML = '';
+        displayBoard(player1grid, playerOne.game);
+    }
+})
+
+player2grid.addEventListener('click', function(e) {
+    if (e.target.classList.contains('gridCell')) {
+        console.log('click')
+        const coord = e.target.id;
+        row = coord.charAt(0);
+        col = coord.charAt(coord.length-1);
+        shotFired(playerTwo.game.board, row, col);
+        player2grid.innerHTML = '';
+        displayBoard(player2grid, playerTwo.game);
+    }
+})
+
+/*const game = new Gameboard(10);
 const patrol = new Ship('patrol', 2);
 console.log(patrol, patrol.hits, patrol.sunk)
 const destroyer = new Ship('destroyer', 3);
@@ -160,4 +211,12 @@ patrol.setShip(game.boardSize, game.board);
 destroyer.setShip(game.boardSize, game.board);
 shotFired(game.board, randomNum(game.boardSize), randomNum(game.boardSize));
 shotFired(game.board, randomNum(game.boardSize), randomNum(game.boardSize));
-displayBoard(player1grid, game);
+shotFired(game.board, randomNum(game.boardSize), randomNum(game.boardSize));
+shotFired(game.board, randomNum(game.boardSize), randomNum(game.boardSize));
+console.log(patrol, destroyer)*/
+const playerOne = new Player('real', 8);
+console.log(playerOne);
+const playerTwo = new Player('real', 8);
+console.log(playerTwo);
+displayBoard(player1grid, playerOne.game);
+displayBoard(player2grid, playerTwo.game);
