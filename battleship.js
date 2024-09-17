@@ -214,9 +214,9 @@ shotFired(game.board, randomNum(game.boardSize), randomNum(game.boardSize));
 shotFired(game.board, randomNum(game.boardSize), randomNum(game.boardSize));
 shotFired(game.board, randomNum(game.boardSize), randomNum(game.boardSize));
 console.log(patrol, destroyer)*/
-const playerOne = new Player('real', 8);
+const playerOne = new Player('real', 7);
 console.log(playerOne);
-const playerTwo = new Player('real', 8);
+const playerTwo = new Player('real', 7);
 console.log(playerTwo);
 displayBoard(player1grid, playerOne.game);
 displayBoard(player2grid, playerTwo.game);
